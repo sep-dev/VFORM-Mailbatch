@@ -111,7 +111,7 @@ namespace VFORMSendMail
             sql.AppendLine("  SELECT");
             sql.AppendLine("    tbl_user.user_name");
             sql.AppendLine("    ,tbl_user.mail");
-            sql.AppendLine("    ,tbl_request.request_date");
+            sql.AppendLine("    ,FORMAT(tbl_request.send_limit_date, 'yyyy/MM/dd') as send_limit_date");
             sql.AppendLine("    ,ISNULL(tbl_target_name.target, '') as target");
             sql.AppendLine("    ,ISNULL(tbl_camera_name.camera, '') as camera");
             sql.AppendLine("  FROM");
@@ -142,7 +142,7 @@ namespace VFORMSendMail
             sql.AppendLine("    ) as tbl_camera_name");
             sql.AppendLine("    ON tbl_request.request_id = tbl_camera_name.request_id");
             sql.AppendLine("  WHERE");
-            sql.AppendLine("    request_date = DATEADD(DAY, 3, CAST(GETDATE() AS DATE))");
+            sql.AppendLine("    send_limit_date = DATEADD(DAY, 3, CAST(GETDATE() AS DATE))");
             sql.AppendLine("    AND tbl_request.status = 0");
 
             DataTable GetSQLDataTable = CommonSQL.SelectSql(sql.ToString());
@@ -162,7 +162,7 @@ namespace VFORMSendMail
             sql.AppendLine("    ,tbl_user.mail");
             sql.AppendLine("    ,contract_type_name");
             sql.AppendLine("    ,contract_count");
-            sql.AppendLine("    ,request_limit_date");
+            sql.AppendLine("    ,FORMAT(tbl_contract.request_limit_date, 'yyyy/MM/dd') as request_limit_date");
             sql.AppendLine("    ,contract_type_name");
             sql.AppendLine("    ,(max_target_change * contract_count) - target_change_count as target_count");
             sql.AppendLine("    ,(max_camera_change * contract_count) - camera_change_count as camera_count");

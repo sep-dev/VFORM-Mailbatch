@@ -152,7 +152,7 @@ namespace VFORMSendMail
                     MailBody.AppendLine("※送付タイミングの行き違い連絡となってしまった場合は、ご容赦ください。");
                     MailBody.AppendLine("");
                     MailBody.AppendLine("■ご申請内容");
-                    MailBody.AppendLine("送付期日：" + Row["request_date"].ToString());
+                    MailBody.AppendLine("送付期日：" + Row["send_limit_date"].ToString());
                     if (! string.IsNullOrEmpty(Row["target"].ToString()))
                     {
                         MailBody.AppendLine("交換ターゲットNo：" + Row["target"].ToString());
